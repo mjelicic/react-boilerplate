@@ -27,7 +27,5 @@ export default class Html extends PureComponent {
 
 Html.propTypes = {
   bodyHtml: React.PropTypes.string.isRequired,
-  isProduction: React.PropTypes.bool.isRequired,
-  title: React.PropTypes.string.isRequired,
   version: React.PropTypes.string.isRequired
 };
