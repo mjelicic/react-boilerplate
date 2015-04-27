@@ -24,7 +24,7 @@ gulp.task('env', function() {
   process.env.NODE_ENV = args.production ? 'production' : 'development';
 });
 
-gulp.task('build-webpack-production', webpackBuild(makeWebpackConfig({isDevelopment: true})));
+gulp.task('build-webpack-production', webpackBuild(makeWebpackConfig({isDevelopment: false})));
 gulp.task('build-webpack-dev', webpackDevServer(makeWebpackConfig({isDevelopment: true})));
 gulp.task('build-webpack', [args.production ? 'build-webpack-production' : 'build-webpack-dev']);
 gulp.task('build', ['build-webpack']);
