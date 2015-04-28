@@ -7,7 +7,7 @@ export default class Html extends PureComponent {
     // Only for production. For dev, it's handled by webpack with livereload.
     const linkStyles = this.props.isProduction &&
       <link
-        href={`/build/app.css?v=${this.props.version}`}
+        href={`${this.props.cdnHost}${this.props.version}/app.css`}
         rel="stylesheet"
       />;
 

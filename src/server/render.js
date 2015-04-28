@@ -56,7 +56,7 @@ function getPageHtml(Handler, appState) {
     `<div id="app">${React.renderToString(<Handler />)}</div>`;
 
   const appScriptSrc = config.isProduction
-    ? '/build/app.js?v=' + config.version
+    ? config.aws.url + config.version + '/app.js'
     : '//localhost:8888/build/app.js';
 
   let scriptHtml =
@@ -77,6 +77,7 @@ function getPageHtml(Handler, appState) {
       bodyHtml={appHtml + scriptHtml}
       isProduction={config.isProduction}
       version={config.version}
+      cdnHost={config.aws.url}
     />
   );
 }

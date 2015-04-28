@@ -9,9 +9,6 @@ import bodyParser from 'body-parser';
 //var expressValidator = require('./expressValidator');
 
 export default function (app) {
-
-  app.use('/build', express.static('build'));
-
   app.use(compression());
   app.use(bodyParser.urlencoded({extended: false}));
   app.use(bodyParser.json());

@@ -6,6 +6,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var NotifyPlugin = require('./notifyplugin');
 var path = require('path');
 var webpack = require('webpack');
+var config = require('../src/server/config/environment');
 
 var loaders = {
   'css': '',
@@ -31,7 +32,7 @@ module.exports = function(opts) {
     });
   }
 
-  var config = {
+  return {
     cache: opts.isDevelopment,
     debug: opts.isDevelopment,
     devtool: opts.isDevelopment ? 'eval-source-map' : '',
@@ -62,25 +63,22 @@ module.exports = function(opts) {
       ]
     },
     module: {
-      loaders: [{
-        loader: 'url-loader?limit=100000',
-        test: /\.(gif|jpg|png|woff|woff2|eot|ttf|svg)$/
-      }, {
-        exclude: /node_modules/,
-        loaders: opts.isDevelopment ? [
-          'react-hot', 'babel-loader'
-        ] : [
-          'babel-loader'
-        ],
-        test: /\.js$/
-      }].concat(stylesLoaders())
+      loaders: [
+        { loader: 'url-loader?limit=8192', test: /\.(gif|jpg|png|woff|woff2|eot|ttf|svg)$/ },
+        {
+          exclude: /node_modules/,
+          loaders: opts.isDevelopment ? [ 'react-hot', 'babel-loader' ] : [ 'babel-loader' ],
+          test: /\.js$/
+        }
+      ].concat(stylesLoaders())
     },
     output: opts.isDevelopment ? {
       path: path.join(__dirname, '/build/'),
       filename: '[name].js',
       publicPath: 'http://localhost:8888/build/'
     } : {
-      path: 'build/',
+      path: 'build/' + config.version,
+      publicPath: config.aws.url + config.version + '/',
       filename: '[name].js'
     },
     plugins: (function() {
@@ -121,7 +119,5 @@ module.exports = function(opts) {
       extensions: ['', '.js', '.json']
     }
   };
-
-  return config;
 
 };

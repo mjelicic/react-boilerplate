@@ -26,7 +26,14 @@ var all = {
     }]
   },
 
-  webpackStylesExtensions: ['css', 'less', 'sass', 'scss']
+  webpackStylesExtensions: ['css', 'less', 'sass', 'scss'],
+
+  aws: {
+    key: process.env.AWS_ACCESS_KEY,
+    secret: process.env.AWS_SECRET,
+    bucket: process.env.AWS_BUCKET,
+    url: process.env.AWS_S3_URL + process.env.AWS_BUCKET + '/'
+  }
 };
 
 // Export the config object based on the NODE_ENV

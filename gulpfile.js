@@ -12,6 +12,7 @@ var runSequence = require('run-sequence');
 var webpackBuild = require('./webpack/build');
 var webpackDevServer = require('./webpack/devserver');
 var yargs = require('yargs');
+var s3 = require("gulp-s3");
 
 // Enables node's --harmony flag programmatically for jest.
 harmonize();
@@ -54,6 +55,11 @@ gulp.task('jest', function(done) {
       process.exit(success ? 0 : 1);
     });
   });
+});
+
+gulp.task('publishToS3', function (){
+  return gulp.src('./build/**')
+    .pipe(s3(require('./src/server/config/environment').aws))
 });
 
 gulp.task('test', function(done) {
